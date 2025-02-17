@@ -10,6 +10,7 @@ import vertex from "./shader.vert";
   await app.init({
     resizeTo: window,
     preference: "webgl",
+    background: "#444444",
   });
 
   // Append the application canvas to the document body
@@ -18,18 +19,28 @@ import vertex from "./shader.vert";
   const quadGeometry = new Geometry({
     attributes: {
       aPosition: [
-        -100,
-        -100, // x, y
-        100,
-        -100, // x, y
-        100,
-        100, // x, y,
-        -100,
-        100, // x, y,
+        -200,
+        -200, // x, y
+        200,
+        -200, // x, y
+        200,
+        200, // x, y,
+        -200,
+        200, // x, y,
       ],
       aUV: [0, 0, 1, 0, 1, 1, 0, 1],
     },
     indexBuffer: [0, 1, 2, 0, 2, 3],
+  });
+
+  const oklou =
+    "https://i.scdn.co/image/ab67616d0000b27308da36b621d12bb2087cf56c";
+  const sza =
+    "https://i.scdn.co/image/ab67616d0000b2737f5a318e3ff35defa8d0e4af";
+
+  const art = await Assets.load({
+    src: sza,
+    loadParser: "loadTextures",
   });
 
   const shader = Shader.from({
@@ -38,12 +49,10 @@ import vertex from "./shader.vert";
       fragment,
     },
     resources: {
-      uTexture: (
-        await Assets.load({
-          src: "https://i.scdn.co/image/ab67616d0000b27308da36b621d12bb2087cf56c",
-          loadParser: "loadTextures",
-        })
-      ).source,
+      uTexture: art.source,
+      timeUniforms: {
+        uTime: { value: 0.0, type: "f32" },
+      },
     },
   });
 
@@ -55,4 +64,8 @@ import vertex from "./shader.vert";
   quad.position.set(400, 300);
 
   app.stage.addChild(quad);
+
+  app.ticker.add(({ deltaTime }) => {
+    shader.resources.timeUniforms.uniforms.uTime += 0.01 * deltaTime;
+  });
 })();
