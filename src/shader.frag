@@ -1,6 +1,6 @@
 in vec2 vUV;
 
-uniform float uTime;
+uniform highp float uTime;
 uniform sampler2D uTexture;
 
 #include "snoise.frag"

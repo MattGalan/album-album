@@ -10,7 +10,7 @@ import vertex from "./shader.vert";
   await app.init({
     resizeTo: window,
     preference: "webgl",
-    background: "#444444",
+    background: "#222222",
   });
 
   // Append the application canvas to the document body
@@ -37,9 +37,11 @@ import vertex from "./shader.vert";
     "https://i.scdn.co/image/ab67616d0000b27308da36b621d12bb2087cf56c";
   const sza =
     "https://i.scdn.co/image/ab67616d0000b2737f5a318e3ff35defa8d0e4af";
+  const woozy =
+    "https://i.scdn.co/image/ab67616d0000b27338e2ac6ca22c8d1f4d781137";
 
   const art = await Assets.load({
-    src: sza,
+    src: woozy,
     loadParser: "loadTextures",
   });
 
